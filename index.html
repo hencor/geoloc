@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PWA con geolocalización</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="manifest.json" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Acceder a la ubicaci&oacute;n del usuario</h1>
+    <button onclick="obtenerUbicacion()">Obtener ubicaci&oacute;n</button>
+    <div id="ubicacion"></div>
+
+    <script>
+      function obtenerUbicacion() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(mostrarUbicacion);
+        } else {
+          document.getElementById("ubicacion").innerHTML = "La geolocalizaci&oacute;n no es compatible con este navegador.";
+        }
+      }
+
+      function mostrarUbicacion(position) {
+        var latitud = position.coords.latitude;
+        var longitud = position.coords.longitude;
+        document.getElementById("ubicacion").innerHTML = "Latitud: " + latitud + "<br>Longitud: " + longitud;
+      }
+    </script>
+  </body>
+</html>
